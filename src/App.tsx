@@ -62,7 +62,40 @@ const Keyboard: React.FC<KeyboardProps> = ({ onButtonClick, onClear, onEnter }) 
     );
 };
 
+const KeyboardSimulator = () => {
+    const dispatch = useDispatch();
+    const pin = useSelector((state: string) => state);
 
+
+
+    const handleButtonClick = (digit: string) => {
+        dispatch(setPin(digit));
+    };
+
+
+
+    const handleClear = () => {
+        dispatch(clearPin());
+    };
+
+    return (
+        <div>
+            {accessGranted ? (
+                <AccessMessage message="Access Granted" color="green" />
+            ) : pin.length === 4 ? (
+                <AccessMessage message="Access Denied" color="red" />
+            ) : null}
+            <div>
+                <div>Password: {pin.replace(/./g, '*')}</div>
+                <Keyboard
+                    onButtonClick={handleButtonClick}
+                    onClear={handleClear}
+                />
+            </div>
+
+        </div>
+    );
+};
 
 const App = () => {
     return (
