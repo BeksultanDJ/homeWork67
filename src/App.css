@@ -40,3 +40,12 @@
 .read-the-docs {
   color: #888;
 }
+
+.keyboard {
+  width: 170px;
+  margin-top: 10px;
+}
+
+.btns {
+  margin: 3px;
+}
