@@ -1,5 +1,6 @@
-
+import React, { useState } from 'react';
 import { createStore } from 'redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import './App.css';
 
 const SET_PIN = 'SET_PIN';
@@ -24,4 +25,27 @@ const pinReducer = (state = '', action: any) => {
     }
 };
 
-const store = createStore(pinReducer);
+const store = createStore(pinReducer); // Создание хранилища Redux
+
+interface AccessMessageProps {
+    message: string;
+    color: string;
+}
+
+const AccessMessage: React.FC<AccessMessageProps> = ({ message, color }) => {
+    return (
+        <div style={{ color }}>
+            <p>{message}</p>
+        </div>
+    );
+};
+
+const App = () => {
+    return (
+        <Provider store={store}>
+            <KeyboardSimulator />
+        </Provider>
+    );
+};
+
+export default App;
