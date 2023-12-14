@@ -68,6 +68,7 @@ const KeyboardSimulator = () => {
 
     const correctPin = '9999';
     const [accessGranted, setAccessGranted] = useState(false);
+    const [showAccessMessage, setShowAccessMessage] = useState(false); // Добавлено состояние для отображения сообщения
 
     const handleButtonClick = (digit: string) => {
         dispatch(setPin(digit));
@@ -76,20 +77,23 @@ const KeyboardSimulator = () => {
     const handleEnter = () => {
         if (pin === correctPin) {
             setAccessGranted(true);
+            setShowAccessMessage(true);
         } else {
             setAccessGranted(false);
+            setShowAccessMessage(false);
         }
     };
 
     const handleClear = () => {
         dispatch(clearPin());
+        setShowAccessMessage(false);
     };
 
     return (
         <div>
             {accessGranted ? (
                 <AccessMessage message="Access Granted" color="green" />
-            ) : pin.length === 4 ? (
+            ) : pin.length === 4 && showAccessMessage ? (
                 <AccessMessage message="Access Denied" color="red" />
             ) : null}
             <div>
@@ -100,10 +104,10 @@ const KeyboardSimulator = () => {
                     onEnter={handleEnter}
                 />
             </div>
-
         </div>
     );
 };
+
 
 const App = () => {
     return (
