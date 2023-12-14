@@ -66,13 +66,20 @@ const KeyboardSimulator = () => {
     const dispatch = useDispatch();
     const pin = useSelector((state: string) => state);
 
-
+    const correctPin = '9999';
+    const [accessGranted, setAccessGranted] = useState(false);
 
     const handleButtonClick = (digit: string) => {
         dispatch(setPin(digit));
     };
 
-
+    const handleEnter = () => {
+        if (pin === correctPin) {
+            setAccessGranted(true);
+        } else {
+            setAccessGranted(false);
+        }
+    };
 
     const handleClear = () => {
         dispatch(clearPin());
@@ -90,6 +97,7 @@ const KeyboardSimulator = () => {
                 <Keyboard
                     onButtonClick={handleButtonClick}
                     onClear={handleClear}
+                    onEnter={handleEnter}
                 />
             </div>
 
